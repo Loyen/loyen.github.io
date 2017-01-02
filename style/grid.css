@@ -1,0 +1,37 @@
+/*
+ * Grid system
+ *
+ * 12 Columns
+ */
+
+/* Clearfix: http://nicolasgallagher.com/micro-clearfix-hack */
+.row:before,
+.row:after {
+		content: ' '; /* 1 */
+		display: table; /* 2 */
+}
+.row:after { clear: both; }
+.row { *zoom: 1; }
+
+.col {
+	position: relative;
+	float: left;
+}
+
+.col--margin {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+.col--1  { width: 8.3333333333333%; }
+.col--2  { width: 16.666666666667%; }
+.col--3  { width: 25%; }
+.col--4  { width: 33.333333333333%; }
+.col--5  { width: 41.666666666667%; }
+.col--6  { width: 50%; }
+.col--7  { width: 58.333333333333%; }
+.col--8  { width: 66.666666666667%; }
+.col--9  { width: 75%; }
+.col--10 { width: 83.333333333333%; }
+.col--11 { width: 91.666666666667%; }
+.col--12 { width: 100%; }

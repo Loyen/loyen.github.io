@@ -1,0 +1,14 @@
+.site {
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+	margin-top: 5em;
+	transition-duration: 0.4s;
+	transition-property: margin-top;
+}
+
+@media (max-width: 420px) {
+	.site {
+		margin-top: 0;
+	}
+}
