@@ -1,8 +1,8 @@
 // Init Coal
-var Coal = function(){};
+let behaviors = {};
 
-Coal.browserSupport = function(){
-	var htmlElement = document.documentElement;
+let browserSupport = function(){
+	let htmlElement = document.documentElement;
 
 	htmlElement.classList.add('js');
 
@@ -20,22 +20,22 @@ Coal.browserSupport = function(){
 
 };
 
-Coal.behaviors = {};
-Coal.attachBehaviors = function(el){
-	for (var func in Coal.behaviors){
+let attachBehaviors = function(el){
+	for (let func in Coal.behaviors){
 		if (Coal.behaviors.hasOwnProperty(func)){
-			var obj = Coal.behaviors[func];
+			let obj = Coal.behaviors[func];
 			obj(el);
 		}
 	};
 }; // Coal.attachBehaviors
 
-Coal.init = function(){
-	Coal.browserSupport();
-	Coal.attachBehaviors(document.documentElement);
+let init = function(el){
+	browserSupport();
+	attachBehaviors(el);
 }; // Coal.init
 
-document.addEventListener("DOMContentLoaded", function(e) {
-	Coal.init();
-});
 
+exports.behaviors = behaviors;
+exports.browserSupport = browserSupport;
+exports.attachBehaviors = attachBehaviors;
+exports.init = init;

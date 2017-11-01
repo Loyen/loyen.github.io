@@ -1,5 +1,5 @@
-Coal.behaviors.layer = function(el) {
-	var classes = {
+var layer = function(el) {
+	let classes = {
 		'layer': 'layer',
 		'layerContent': 'layer-content',
 		'layerOpen': 'isOpen',
@@ -7,50 +7,50 @@ Coal.behaviors.layer = function(el) {
 		'layerInactive': 'isInactive'
 	};
 
-	var layerElement = document.createElement('div');
+	let layerElement = document.createElement('div');
 	layerElement.setAttribute('class', classes.layer);
 
-	var layerContentElement = document.createElement('div');
+	let layerContentElement = document.createElement('div');
 	layerContentElement.setAttribute('class', classes.layerContent);
 
-	var create = function(id, content) {
-		var newLayer = layerElement.cloneNode();
-		var newContent = layerContentElement.cloneNode();
+	let create = function(id, content) {
+		let newLayer = layerElement.cloneNode();
+		let newContent = layerContentElement.cloneNode();
 
 		newContent.innerHTML = content;
 
 		newLayer.appendChild(newContent);
 
-		var body = document.querySelector('body');
+		let body = document.querySelector('body');
 		body.appendChild(newLayer);
 	};
 
 
-	var open = function(item, x, y) {
+	let open = function(item, x, y) {
 
 	};
 
-	var close = function(item, e) {
+	let close = function(item, e) {
 
 	};
 
-	var items = el.querySelectorAll('.js-layer');
-	for (var i=0; i < items.length; i++) {
-		var item = items[i];
+	let items = el.querySelectorAll('.js-layer');
+	for (let i=0; i < items.length; i++) {
+		let item = items[i];
 
 		if (item.classList.contains('js-layer-init')) continue;
 		item.classList.add('js-layer-init');
 
-		var openEvent = function(e) {
+		let openEvent = function(e) {
 		};
 
-		var closeEvent = function(e) {
+		let closeEvent = function(e) {
 		};
 
-		var layerActive = function(e) {
+		let layerActive = function(e) {
 		};
 
-		var layerInactiveEvent = function(e) {
+		let layerInactiveEvent = function(e) {
 		};
 
 		if (document.documentElement.classList.contains('mobile')) {
@@ -63,3 +63,5 @@ Coal.behaviors.layer = function(el) {
 		}
 	}
 }; // ripple
+
+export default layer;

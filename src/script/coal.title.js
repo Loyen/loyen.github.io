@@ -1,27 +1,27 @@
-Coal.behaviors.title = function(el) {
-	var titleClass = 'title';
+var title = function(el) {
+	let titleClass = 'title';
 
-	var titleItemElement = document.createElement('div');
+	let titleItemElement = document.createElement('div');
 	titleItemElement.setAttribute('class', titleClass);
 
-	var hover = function(item, e) {
-		var titleItem = item.querySelector('.'+titleClass);
+	let hover = function(item, e) {
+		let titleItem = item.querySelector('.'+titleClass);
 		titleItem.classList.remove('is-hidden');
 	};
 
-	var leave = function(item, e) {
-		var titleItem = item.querySelector('.'+titleClass);
+	let leave = function(item, e) {
+		let titleItem = item.querySelector('.'+titleClass);
 		titleItem.classList.add('is-hidden');
 	};
 
-	var items = el.querySelectorAll('[title]');
-	for (var i=0; i < items.length; i++) {
-		var item = items[i];
+	let items = el.querySelectorAll('[title]');
+	for (let i=0; i < items.length; i++) {
+		let item = items[i];
 
 		if (item.classList.contains('js-title-init')) continue;
 		item.classList.add('js-title-init');
 
-		var titleItem = titleItemElement.cloneNode();
+		let titleItem = titleItemElement.cloneNode();
 
 		titleItem.classList.add('is-hidden');
 		titleItem.innerHTML = item.getAttribute('title');
@@ -29,11 +29,11 @@ Coal.behaviors.title = function(el) {
 
 		item.removeAttribute('title');
 
-		var hoverEvent = function(e) {
+		let hoverEvent = function(e) {
 			hover(this, e);
 		};
 
-		var leaveEvent = function(e) {
+		let leaveEvent = function(e) {
 			leave(this, e);
 		};
 
@@ -41,3 +41,5 @@ Coal.behaviors.title = function(el) {
 		item.addEventListener('mouseout', leaveEvent);
 	}
 }; // title
+
+export default title;

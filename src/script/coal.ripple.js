@@ -1,34 +1,34 @@
-Coal.behaviors.ripple = function(el) {
-	var classes = {
+var ripple = function(el) {
+	let classes = {
 		'container': 'ripple',
 		'ripple': 'ripple-wave',
 		'rippleActive': 'active',
 		'rippleInactive': 'inactive'
 	};
 
-	var rippleContainerElement = document.createElement('div');
+	let rippleContainerElement = document.createElement('div');
 	rippleContainerElement.setAttribute('class', classes.container);
 
-	var rippleItemElement = document.createElement('div');
+	let rippleItemElement = document.createElement('div');
 	rippleItemElement.setAttribute('class', classes.ripple);
 
 
-	var click = function(item, e) {
-		var rippleContainer = item.querySelector('.'+classes.container);
+	let click = function(item, e) {
+		let rippleContainer = item.querySelector('.'+classes.container);
 		if (!rippleContainer) {
 			rippleContainer = rippleContainerElement.cloneNode();
 			item.appendChild(rippleContainer);
 		}
 
-		var rippleItem = rippleItemElement.cloneNode();
+		let rippleItem = rippleItemElement.cloneNode();
 
-		var rippleContainerWidth = rippleContainer.offsetWidth;
-		var rippleContainerHeight = rippleContainer.offsetHeight;
+		let rippleContainerWidth = rippleContainer.offsetWidth;
+		let rippleContainerHeight = rippleContainer.offsetHeight;
 
-		var clickX = e.offsetX;
-		var clickY = e.offsetY;
+		let clickX = e.offsetX;
+		let clickY = e.offsetY;
 
-		var rippleSize = 0;
+		let rippleSize = 0;
 
 		if (rippleContainerWidth > rippleContainerHeight) {
 			rippleSize = rippleContainerWidth;
@@ -47,10 +47,10 @@ Coal.behaviors.ripple = function(el) {
 		rippleContainer.appendChild(rippleItem);
 	};
 
-	var release = function(item, e) {
-		var rippleItems = item.querySelectorAll('.'+classes.ripple);
-		for (var i=0; i < rippleItems.length; i++) {
-			var rippleItem = rippleItems[i];
+	let release = function(item, e) {
+		let rippleItems = item.querySelectorAll('.'+classes.ripple);
+		for (let i=0; i < rippleItems.length; i++) {
+			let rippleItem = rippleItems[i];
 
 			if (rippleItem.classList.contains(classes.rippleInactive)) continue;
 
@@ -64,18 +64,18 @@ Coal.behaviors.ripple = function(el) {
 		}
 	};
 
-	var items = el.querySelectorAll('.js-ripple');
-	for (var i=0; i < items.length; i++) {
-		var item = items[i];
+	let items = el.querySelectorAll('.js-ripple');
+	for (let i=0; i < items.length; i++) {
+		let item = items[i];
 
 		if (item.classList.contains('js-ripple-init')) continue;
 		item.classList.add('js-ripple-init');
 
-		var clickEvent = function(e) {
+		let clickEvent = function(e) {
 			click(this, e);
 		};
 
-		var releaseEvent = function(e) {
+		let releaseEvent = function(e) {
 			release(this, e);
 		};
 
@@ -84,3 +84,5 @@ Coal.behaviors.ripple = function(el) {
 		item.addEventListener('mouseup', releaseEvent);
 	}
 }; // ripple
+
+export default ripple;

@@ -1,0 +1,32 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "npm run build && open ./src/public/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Loyen/loyen.github.io.git"
+  },
+  "keywords": [
+    "portfolio"
+  ],
+  "author": "Patrik Freij",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Loyen/loyen.github.io/issues"
+  },
+  "homepage": "https://github.com/Loyen/loyen.github.io#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.5",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.8.1"
+  }
+}
