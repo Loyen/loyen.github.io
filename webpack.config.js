@@ -8,6 +8,13 @@ module.exports= {
 	module: {
 		rules: [
 			{
+				test: /\.vue$/,
+				exclude: /(node_modules|bower_components)/,
+				use: [
+					'vue-loader'
+				]
+			},
+			{
 				test: /\.css$/,
 				exclude: /(node_modules|bower_components)/,
 				use: [

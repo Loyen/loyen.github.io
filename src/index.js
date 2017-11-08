@@ -21,3 +21,13 @@ document.addEventListener("DOMContentLoaded", function(e) {
 /* CSS */
 
 require('./style/all.css')
+
+/* Vue */
+
+import Vue from 'vue'
+import App from './templates/app.vue'
+
+new Vue({
+  el: '#app',
+  render: h => h(App)
+})
