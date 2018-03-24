@@ -1,77 +1,62 @@
 <template>
 	<div class="site">
 
-		<div class="container">
+		<c-grid template="auto / 100%" gap="1em">
 
-			<card>
+			<c-grid-item>
 
-				<div class="row">
+				<c-card>
 
-					<div class="col col--4" title="Contact Me">
-						<a class="user-mail js-ripple" href="mailto:patrik.t.freij[at]gmail[dot]com">
-							<span class="icon icon--mail"></span>
-						</a>
-					</div>
+					<c-grid template="auto / 40% 60%">
 
-					<div class="col col--8 col--margin">
+						<c-grid-item>
+							<c-button size="xxxl" icon="mail_outline" title="Contact me" href="mailto:patrik.t.freij[at]gmail[dot]com" />
+						</c-grid-item>
 
-						<div class="row">
-							<div class="col col--12">
-								<div class="user-name">Patrik Freij</div>
-							</div>
-						</div> <!-- row -->
+						<c-grid-item>
+							<h1>Patrik Freij</h1>
+							<h2>Web developer from Sweden</h2>
+						</c-grid-item>
 
-						<div class="row">
+					</c-grid>
 
-							<div class="col col--6">
-								<div class="user-title">Web developer</div>
-							</div>
+					<c-grid template="auto / auto auto auto">
 
-							<div class="col col--6">
-								<div class="user-title">Sweden</div>
-							</div>
+						<c-grid-item>
+							<c-button icon="account_circle" value="Resume" title="Resume" href="https://docs.google.com/document/d/1e5xJMdOblZ9l9INGVLrQTl5UCm_ACyF4pOV4GtbixBw/edit?usp=sharing" />
+						</c-grid-item>
 
-						</div> <!-- row -->
+						<c-grid-item>
+							<c-button icon="link" value="GitHub" title="GitHub" href="https://github.com/Loyen" />
+						</c-grid-item>
 
-					</div> <!-- col -->
+						<c-grid-item>
+							<c-button icon="link" value="LinkedIn" title="LinkedIn" href="https://www.linkedin.com/in/patrik-freij-2407a067" />
+						</c-grid-item>
 
-				</div> <!-- row -->
+					</c-grid>
 
+				</c-card>
 
-				<div class="row">
+			</c-grid-item>
 
-					<div class="col col--4">
-						<a class="user-link js-ripple" href="https://docs.google.com/document/d/1e5xJMdOblZ9l9INGVLrQTl5UCm_ACyF4pOV4GtbixBw/edit?usp=sharing" title="Skills & Experiences">
-							Resume
-						</a>
-					</div>
-
-
-					<div class="col col--4">
-						<a class="user-link js-ripple" href="https://github.com/Loyen" title="Public Projects">
-							GitHub
-						</a>
-					</div>
-
-					<div class="col col--4">
-						<a class="user-link js-ripple" href="https://www.linkedin.com/in/patrik-freij-2407a067" title="linkedIn profile">
-							LinkedIn
-						</a>
-					</div>
-				</div> <!-- row -->
-
-			</card>
-
-		</div> <!-- container -->
+		</c-grid>
 
 	</div> <!-- site -->
 </template>
 
 <script>
+import button from './button/button.vue';
 import card from './card/card.vue';
+import grid from './grid/grid.vue';
+import gridItem from './grid/item.vue';
+
 export default {
 	components: {
-		"card": card
+		"c-button": button,
+		"c-card": card,
+		"c-grid": grid,
+		"c-grid-item": gridItem
 	}
 }
 </script>

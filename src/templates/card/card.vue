@@ -1,9 +1,9 @@
 <template>
 	<div class="card card--user raise--6">
-		<card-head :title="title" v-if="title" />
-		<card-body>
+		<c-card-head :title="title" v-if="title" />
+		<c-card-body>
 			<slot></slot>
-		</card-body>
+		</c-card-body>
 	</div>
 </template>
 
@@ -13,8 +13,8 @@ import cardBody from './card-body.vue';
 
 export default {
 	components: {
-		"card-head": cardHead,
-		"card-body": cardBody
+		"c-card-head": cardHead,
+		"c-card-body": cardBody
 	},
 	props: {
 		"title": { required: false, default: null }
