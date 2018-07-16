@@ -66,6 +66,8 @@ body,
 
 .contentColumn--text {
     text-shadow: 0.1em 0.1em 0.1em rgba(0,0,0,0.2);
+    align-self: flex-end;
+    font-size: 1.2em;
 }
 
 .footer {
@@ -113,7 +115,7 @@ body,
     }
 
     .contentColumn--text {
-        padding: 0;
+        align-self: auto;
     }
 
     .footer {
