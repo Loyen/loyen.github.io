@@ -1,0 +1,17 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256">
+    <filter id="blur">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.25" />
+    </filter>
+    <defs>
+        <g id="pixel">
+            <circle cx="1" cy="1" r="1" fill="#ff0000" />
+            <circle cx="3" cy="1" r="1" fill="#0000ff" />
+            <circle cx="5" cy="1" r="1" fill="#00ff00" />
+        </g>
+    </defs>
+    <use xlink:href="#pixel" x="32" y="32" />
+    <use xlink:href="#pixel" x="160" y="16" />
+    <use xlink:href="#pixel" x="64" y="160" />
+    <use xlink:href="#pixel" x="160" y="86" />
+    <use xlink:href="#pixel" x="192" y="192" />
+</svg>

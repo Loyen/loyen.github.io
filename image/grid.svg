@@ -1,0 +1,12 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
+    <filter id="blur">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+    </filter>
+    <defs>
+        <g id="grid">
+            <path d="M0,0V1H32V0ZM0,1H1V32H0ZM31,1V32H32V1ZM1,31V32H31V31Z" fill="#ff16a9" stroke="#ff16a9" />
+        </g>
+    </defs>
+    <use xlink:href="#grid" stroke-width="0" />
+    <use filter="url(#blur)" xlink:href="#grid" stroke-width="2" />
+</svg>
