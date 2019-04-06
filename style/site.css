@@ -104,8 +104,11 @@ body {
     border-top: 8px solid #ff16a9;
     box-shadow: 0 -2em 16em 0 #ff16a9;
     transform: perspective(100em) rotateX(75deg) translateY(90%);
-    animation: groundmovement 1s linear infinite;
     overflow: hidden;
+}
+
+.grid--move {
+    animation: groundmovement 1s linear infinite;
 }
 
 @keyframes groundmovement {
