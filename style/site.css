@@ -107,7 +107,7 @@ body {
     overflow: hidden;
 }
 
-.grid-move {
+.grid--move {
     animation: groundmovement 1s linear infinite;
 }
 
