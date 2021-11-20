@@ -7,33 +7,21 @@ body,
     height: 100%;
 }
 
-html {
-    line-height: 1.15;
-    
-}
-
 body {
-    margin: 0;
     background: #121212;
     color: #bbbbbb;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .site {
-    position: absolute;
-    left: 0;
-    top: 0;
     display: grid;
-    grid-template-areas: 
-        ". header ."
-        ". content ." 
-        ". footer .";
+    grid-template-areas: "content" "footer";
 }
 
 .content {
     grid-area: content;
     align-self: center;
     justify-self: center;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .name {
@@ -44,7 +32,6 @@ body {
     grid-area: footer;
     align-self: center;
     justify-self: center;
-    font-family: Arial, Helvetica, sans-serif;
     display: flex;
 }
 
@@ -57,3 +44,4 @@ body {
 
 .link:hover {
     color: #fff26d;
+}
