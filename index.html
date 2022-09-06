@@ -13,14 +13,16 @@
 
     <style>
 :root {
-    --primary-color: #F8F8F2;
-    --primary-alternate-color: #1B1D1E;
-    --secondary-color: #F8F8F2;
-    --secondary-alternate-color: #1F2425;
-    --primary-header-color: #F92672;
-    --primary-link-color: #FD971F;
-    --primary-button-color: #FD971F;
-    --primary-button-alternate-color: #1B1D1E;
+    --primary-color: #1B1D1E;
+    --primary-alternate-color: #F8F8F2;
+
+    --color-alternative-1: #F92672;
+    --color-alternative-2: #0CCCFA;
+    --color-alternative-3: #FAEA3E;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 html,
@@ -33,63 +35,105 @@ body,
 }
 
 body {
-    background: var(--primary-alternate-color);
     color: var(--primary-color);
     font-family: Arial, Helvetica, sans-serif;
+    background: var(--primary-alternate-color);
+    background: linear-gradient(
+        120deg,
+        var(--color-alternative-1) 0%,
+        var(--color-alternative-1) 50%,
+        var(--color-alternative-2) 50%,
+        var(--color-alternative-2) 100%
+    );
 }
 
 .site {
     display: grid;
-    grid-template-areas: "content" "footer";
+    grid-template-rows: repeat(3, auto);
 }
 
-.content {
-    grid-area: content;
+.personal {
+    display: grid;
     align-self: center;
     justify-self: center;
+    text-align: center;
+    padding: 1em 2em;
+    border-radius: 0.2em;
+    color: var(--primary-alternate-color);
+    background-color: var(--primary-color);
 }
 
 .name {
-    color: var(--primary-header-color);
+    font-weight: bold;
+}
+
+.keyboards {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 2rem;
+    align-content: center;
+    justify-content: space-evenly;
+}
+
+.keyboard {
+    align-self: baseline;
+    text-align: center;
+    color: var(--primary-color);
+    background-color: var(--primary-alternate-color);
+    border-radius: 0.5em;
+    padding: 1em;
+    max-width: 40vw;
+    transition: box-shadow linear 60ms;
+    text-decoration: none;
+}
+
+.keyboard:hover {
+    box-shadow: 0 0 0 0.25em var(--primary-color);
+}
+
+.keyboard-image {
+    object-fit: contain;
+    width: 100%;
 }
 
 .links {
-    grid-area: footer;
     display: grid;
     grid-template-columns: repeat(3, auto);
-    grid-gap: 2em;
+    grid-gap: 4em;
     align-content: center;
-    justify-content: center;
-    background: var(--secondary-alternate-color);
-    background: linear-gradient(
-        -183.5deg, var(--primary-alternate-color)
-        0%, var(--primary-alternate-color)
-        19.75%, var(--secondary-alternate-color)
-        20%, var(--secondary-alternate-color)
-        89.75%, var(--secondary-alternate-color)
-        90%, var(--secondary-alternate-color) 100%);
+    justify-content: end;
+    justify-self: center;
 }
 
 .link {
-    color: var(--primary-link-color);
     text-decoration: none;
-    padding: 1em 2em;
     border-radius: 0.5em;
 }
 
 .icon {
     fill: var(--primary-color);
-    height: 24px;
-    width: 24px;
+    height: 32px;
+    width: 32px;
 }
     </style>
 </head>
 
 <body>
     <div class="site">
-        <div class="content">
-            <p class="name">Patrik Freij</p>
-            <p class="title">Developer</p>
+        <div class="personal">
+            <div class="name">Patrik Freij</div>
+            <div class="title">Developer</div>
+        </div>
+
+        <div class="keyboards">
+            <a class="keyboard" href="https://gist.github.com/Loyen/38eeae8780ababd3e32a382394c20c1c#file-planck_rev4_1x2uc_swedish-json">
+                <img class="keyboard-image" src="./image/planck.svg" />
+                <div class="keyboard-name">Planck</div>
+            </a>
+            <a class="keyboard" href="https://gist.github.com/Loyen/38eeae8780ababd3e32a382394c20c1c#file-preonic_rev3_1x2uc_swedish-json">
+                <img class="keyboard-image" src="./image/preonic.svg" />
+                <div class="keyboard-name">Preonic</div>
+            </a>
         </div>
 
         <div class="links">
@@ -109,7 +153,7 @@ body {
                 </svg>
             </a>
         </div>
-    </div> <!-- site -->
+    </div>
 </body>
 
 </html>
