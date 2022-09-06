@@ -1,4 +1,4 @@
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113 41" fill="#ff9000">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113 41" fill="#1B1D1E">
     <symbol id="key-1u" width="8" height="8" viewBox="0 0 8 8">
         <path d="M1,0A1,1 0 0 0 0,1V7A1,1 0 0 0 1,8H7A1,1 0 0 0 8,7V1A1,1 0 0 0 7,0Z" fill="inherit" />
         <path d="M4,1A3,3 0 0 0 1,4A3,3 0 0 0 4,7A3,3 0 0 0 7,4A3,3 0 0 0 4,1Z" fill="rgba(0,0,0,0.02)" />
@@ -15,16 +15,16 @@
 
     <g id="keyrow-r1" fill="inherit">
         <use href="#key-1u" x="3" y="3" />
-        <use href="#key-1u" x="12" y="3" fill="#fff" />
-        <use href="#key-1u" x="21" y="3" fill="#fff" />
-        <use href="#key-1u" x="30" y="3" fill="#fff" />
-        <use href="#key-1u" x="39" y="3" fill="#fff" />
-        <use href="#key-1u" x="48" y="3" fill="#fff" />
-        <use href="#key-1u" x="57" y="3" fill="#fff" />
-        <use href="#key-1u" x="66" y="3" fill="#fff" />
-        <use href="#key-1u" x="75" y="3" fill="#fff" />
-        <use href="#key-1u" x="84" y="3" fill="#fff" />
-        <use href="#key-1u" x="93" y="3" fill="#fff" />
+        <use href="#key-1u" x="12" y="3" />
+        <use href="#key-1u" x="21" y="3" />
+        <use href="#key-1u" x="30" y="3" />
+        <use href="#key-1u" x="39" y="3" />
+        <use href="#key-1u" x="48" y="3" />
+        <use href="#key-1u" x="57" y="3" />
+        <use href="#key-1u" x="66" y="3" />
+        <use href="#key-1u" x="75" y="3" />
+        <use href="#key-1u" x="84" y="3" />
+        <use href="#key-1u" x="93" y="3" />
         <use href="#key-1u" x="102" y="3" />
     </g>
 
