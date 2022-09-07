@@ -89,12 +89,16 @@ body {
     border-radius: 0.5em;
     padding: 1em;
     max-width: 40vw;
-    transition: outline linear 60ms;
+    outline: none;
+    transition-property: background-color, color;
+    transition-duration: 120ms;
     text-decoration: none;
 }
 
-.keyboard:hover {
-    outline: 0.25em solid var(--primary-alternate-color);
+.keyboard:hover,
+.keyboard:focus-visible {
+    color: var(--primary-color);
+    background-color: var(--primary-alternate-color);
 }
 
 .keyboard-image {
@@ -105,23 +109,32 @@ body {
 .links {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    grid-gap: 4em;
     align-content: center;
     justify-content: end;
     justify-self: center;
     align-self: center;
-    padding: 1em 2em;
     border-radius: 0.5em;
     background-color: var(--primary-color);
+    fill: var(--primary-alternate-color);
 }
 
 .link {
     text-decoration: none;
     border-radius: 0.5em;
+    padding: 1em 2em;
+    outline: none;
+    transition-property: background-color, color;
+    transition-duration: 120ms;
+}
+
+.link:hover,
+.link:focus-visible {
+    background-color: var(--primary-alternate-color);
+    fill: var(--primary-color);
 }
 
 .icon {
-    fill: var(--primary-alternate-color);
+    fill: inherit;
     height: 32px;
     width: 32px;
 }
