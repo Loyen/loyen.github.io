@@ -55,7 +55,7 @@ body {
 .site {
     display: grid;
     grid-template-rows: 1fr auto 1fr;
-    grid-gap: 4em;
+    grid-gap: 1em;
 }
 
 .personal {
@@ -74,21 +74,19 @@ body {
 }
 
 .keyboards {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    grid-gap: 2rem;
-    align-content: center;
-    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 1rem;
+    justify-content: center;
 }
 
 .keyboard {
-    align-self: baseline;
+    align-self: center;
     text-align: center;
     color: var(--primary-alternate-color);
     background-color: var(--primary-color);
     border-radius: 0.5em;
     padding: 1em;
-    max-width: 40vw;
     outline: none;
     transition-property: background-color, color;
     transition-duration: 120ms;
