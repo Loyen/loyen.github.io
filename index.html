@@ -15,14 +15,13 @@
     --default-color: #1B1D1E;
     --default-alternate-color: #F8F8F2;
 
-
     --primary-color: #F92672;
     --primary-alternate-color: #1B1D1E;
     --secondary-color: #0CCCFA;
     --secondary-alternate-color: #1B1D1E;
 
-    --link-color: var(--secondary-color);
-    --link-alternate-color: var(--secondary-alternate-color);
+    --link-color: var(--primary-color);
+    --link-alternate-color: var(--primary-alternate-color);
 
     --transition-durations: 60ms;
 }
@@ -31,6 +30,11 @@
     :root {
         --default-color: #F8F8F2;
         --default-alternate-color: #1B1D1E;
+
+        --primary-color: #0CCCFA;
+        --primary-alternate-color: #1B1D1E;
+        --secondary-color: #F92672;
+        --secondary-alternate-color: #1B1D1E;
     }
 }
 
@@ -73,11 +77,11 @@ body {
     min-height: 100dvh;
     border-radius: 0.2em;
     color: var(--default-alternate-color);
-    background: var(--primary-color);
+    background: var(--secondary-color);
     background: linear-gradient(
         120deg,
-        var(--primary-color) 10%,
-        var(--secondary-color) 90%
+        var(--secondary-color) 10%,
+        var(--primary-color) 90%
     );
 }
 
