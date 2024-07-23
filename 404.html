@@ -18,9 +18,11 @@
     --primary-alternate-color: #1B1D1E;
     --secondary-color: #0CCCFA;
     --secondary-alternate-color: #1B1D1E;
+    --tertiary-color: #FADE0C;
+    --tertiary-alternate-color: #1B1D1E;
 
-    --link-color: var(--primary-color);
-    --link-alternate-color: var(--primary-alternate-color);
+    --link-color: var(--tertiary-color);
+    --link-alternate-color: var(--tertiary-alternate-color);
 
     --transition-durations: 60ms;
 }
@@ -93,16 +95,18 @@ body {
 }
 
 .link {
-    text-decoration: none;
-    outline: none;
     transition-property: color;
     transition-duration: 120ms;
-    color: var(--link-color);
+    text-decoration: underline;
+    color: var(--default-color);
 }
 
-.link:hover,
 .link:focus-visible {
-    text-decoration: underline;
+    text-decoration: none;
+    background-color: var(--tertiary-color);
+    color: var(--tertiary-alternate-color);
+    outline: 0.5em solid var(--default-color);
+    outline-offset: 0;
 }
     </style>
 </head>
