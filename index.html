@@ -77,13 +77,14 @@ body {
 .section {
     display: grid;
     padding-inline: 2em;
-    justify-content: center;
 }
 
 .section-content {
     display: grid;
+    justify-self: center;
     max-width: 960px;
     padding-block: 4em;
+    width: 100%;
 }
 
 .section--hero {
@@ -114,6 +115,7 @@ body {
 
 .hero {
     align-self: end;
+    justify-self: center;
 }
 
 .hero-name {
@@ -178,7 +180,6 @@ body {
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
-    justify-self: center;
 }
 
 .keyboard {
