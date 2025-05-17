@@ -26,6 +26,7 @@
     --link-alternate-color: var(--tertiary-alternate-color);
 
     --transition-durations: 60ms;
+    --background-gradient-angle: 160deg;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -85,31 +86,33 @@ body {
 }
 
 .section--hero {
-    display: grid;
     min-height: 75dvh;
-    border-radius: 0.2em;
-    color: var(--default-alternate-color);
-    background: var(--secondary-color);
-    background: linear-gradient(
-        120deg,
-        var(--secondary-color) 10%,
-        var(--primary-color) 90%
-    );
 }
 
-.section--alternate {
+.section:nth-child(2n + 1) {
     color: var(--default-alternate-color);
     background: var(--primary-color);
     background: linear-gradient(
-        120deg,
+        var(--background-gradient-angle),
         var(--primary-color) 10%,
         var(--secondary-color) 90%
     );
 }
 
+.section:first-child,
+.section:nth-child(4n + 1) {
+    display: grid;
+    color: var(--default-alternate-color);
+    background: var(--secondary-color);
+    background: linear-gradient(
+        var(--background-gradient-angle),
+        var(--secondary-color) 10%,
+        var(--primary-color) 90%
+    );
+}
+
 .hero {
     align-self: end;
-    justify-self: start;
 }
 
 .hero-name {
@@ -138,8 +141,6 @@ body {
 
 .links {
     display: inline-flex;
-    align-content: center;
-    justify-content: end;
     justify-self: center;
     align-self: center;
     gap: 1em;
@@ -250,7 +251,7 @@ body {
             </div>
         </div>
 
-        <div class="section section--alternate">
+        <div class="section">
             <div class="section-content">
                 <div class="keyboards">
                     <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/planck_rev4_1x2uC_swedish.json">
