@@ -25,8 +25,21 @@
     --link-color: var(--tertiary-color);
     --link-alternate-color: var(--tertiary-alternate-color);
 
+    --spacing-small: .5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 4rem;
+
     --transition-durations: 60ms;
     --background-gradient-angle: 160deg;
+
+    --site-width: 960px;
+
+    --font-size-small: 0.6rem;
+    --font-size-normal: 1rem;
+    --font-size-large: 1.4rem;
+
+    --corner-radius-small: .5rem;
+    --corner-radius-medium: .7rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,9 +47,9 @@
         --default-color: #F8F8F2;
         --default-alternate-color: #1B1D1E;
 
-        --primary-color: #0CCCFA;
+        --primary-color: #F92672;
         --primary-alternate-color: #1B1D1E;
-        --secondary-color: #F92672;
+        --secondary-color: #0CCCFA;
         --secondary-alternate-color: #1B1D1E;
     }
 }
@@ -66,60 +79,82 @@ body {
     color: var(--default-color);
     background-color: var(--default-alternate-color);
     font-family: Arial, Helvetica, sans-serif;
+    font-size: var(--font-size-normal);
 }
 
 .site {
-    scroll-snap-type: y mandatory;
-    overflow-y: auto;
-    height: 100dvh;
+    display: grid;
+}
+
+.siteHeader {
+    display: grid;
+    place-self: center;
+    width: 100%;
+    max-width: var(--site-width);
+    padding: var(--spacing-medium);
+}
+
+.siteHeader-title {
+    grid-area: 1/1;
+    justify-self: start;
+    align-self: center;
+    font-size: var(--font-size-large);
+    text-decoration: none;
+    color: var(--default-color);
+}
+
+.siteHeader-navigation {
+    grid-area: 1/1;
+    display: inline-flex;
+    justify-self: end;
+    align-self: center;
+    gap: 1em;
+}
+
+.navigationItem {
+    text-decoration: none;
+    border-radius: var(--corner-radius-small);
+    padding: var(--spacing-small);
+    outline: none;
+    transition-property: background-color, color;
+    transition-duration: var(--transition-durations);
+    color: var(--default-color);
+    fill: var(--default-color);
+    background-color: var(--default-alternate-color);
+}
+
+.navigationItem:hover,
+.navigationItem:focus-visible {
+    color: var(--link-alternate-color);
+    fill: var(--link-alternate-color);
+    background-color: var(--link-color);
+}
+
+.navigationItem-icon {
+    fill: inherit;
+    height: 32px;
+    width: 32px;
+    display: block;
 }
 
 .section {
     display: grid;
-    padding-inline: 2em;
+    padding-block: var(--spacing-medium);
 }
 
 .section-content {
     display: grid;
     justify-self: center;
     max-width: 960px;
-    padding-block: 4em;
+    padding-block: var(--spacing-small);
+    padding-inline: var(--spacing-small);
     width: 100%;
 }
 
-.section--hero {
-    min-height: 75dvh;
-}
-
-.section:nth-child(2n + 1) {
+.section:nth-child(2n + 1) .section-content {
     color: var(--default-alternate-color);
     background: var(--primary-color);
-    background: linear-gradient(
-        var(--background-gradient-angle),
-        var(--primary-color) 10%,
-        var(--secondary-color) 90%
-    );
-}
-
-.section:first-child,
-.section:nth-child(4n + 1) {
-    display: grid;
-    color: var(--default-alternate-color);
-    background: var(--secondary-color);
-    background: linear-gradient(
-        var(--background-gradient-angle),
-        var(--secondary-color) 10%,
-        var(--primary-color) 90%
-    );
-}
-
-.hero {
-    align-self: end;
-    justify-self: center;
-}
-
-.hero-name {
-    font-weight: bold;
+    border-radius: var(--corner-radius-medium);
 }
 
 .text-heading-1,
@@ -129,56 +164,14 @@ body {
     font-size: clamp(0.9em, 2dvw, 1.2em);
     font-weight: normal;
     line-height: 1.5em;
-    margin-block: 0;
-}
-
-
-.text-heading-1 {
-    font-size: clamp(2em, 10dvw, 6em);
-    font-weight: bold;
-}
-
-.text-heading-2 {
-    font-size: clamp(1.3em, 5dvw, 3em);
-}
-
-.links {
-    display: inline-flex;
-    justify-self: center;
-    align-self: center;
-    gap: 1em;
-}
-
-.link {
-    text-decoration: none;
-    border-radius: 0.5em;
-    padding: 0.5em;
-    outline: none;
-    transition-property: background-color, color;
-    transition-duration: var(--transition-durations);
-    color: var(--default-color);
-    fill: var(--default-color);
-    background-color: var(--default-alternate-color);
-}
-
-.link:hover,
-.link:focus-visible {
-    color: var(--link-alternate-color);
-    fill: var(--link-alternate-color);
-    background-color: var(--link-color);
-}
-
-.icon {
-    fill: inherit;
-    height: 32px;
-    width: 32px;
-    display: block;
+    margin-block: var(--spacing-small);
 }
 
 .keyboards {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--spacing-small);
+    margin: var(--spacing-small);
     justify-content: center;
 }
 
@@ -187,8 +180,8 @@ body {
     text-align: center;
     color: var(--default-color);
     background-color: var(--default-alternate-color);
-    border-radius: 0.5em;
-    padding: 1em;
+    border-radius: var(--corner-radius-small);
+    padding: var(--spacing-small);
     outline: none;
     transition-property: background-color, color;
     transition-duration: var(--transition-durations);
@@ -210,37 +203,50 @@ body {
 </head>
 <body>
     <div class="site">
-        <div class="section section--hero">
-            <div class="section-content">
-                <div class="hero">
-                    <div class="hero-name"><h1 class="text-heading-1">Patrik Freij</h1></div>
-                    <div class="hero-title"><h2 class="text-heading-2">Developer</h2></div>
-                </div>
-                <div class="links">
-                    <a class="link" href="https://github.com/Loyen" title="Github">
-                        <svg class="icon" viewBox="0 0 16 16" version="1.1">
-                            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-                        </svg>
-                    </a>
-                    <a class="link" href="https://www.linkedin.com/in/patrik-freij" title="LinkedIn">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 34 34">
-                            <path d="M34,2.5v29A2.5,2.5,0,0,1,31.5,34H2.5A2.5,2.5,0,0,1,0,31.5V2.5A2.5,2.5,0,0,1,2.5,0h29A2.5,2.5,0,0,1,34,2.5ZM10,13H5V29h5Zm.45-5.5A2.88,2.88,0,0,0,7.59,4.6H7.5a2.9,2.9,0,0,0,0,5.8h0a2.88,2.88,0,0,0,2.95-2.81ZM29,19.28c0-4.81-3.06-6.68-6.1-6.68a5.7,5.7,0,0,0-5.06,2.58H17.7V13H13V29h5V20.49a3.32,3.32,0,0,1,3-3.58h.19c1.59,0,2.77,1,2.77,3.52V29h5Z"></path>
-                        </svg>
-                    </a>
-                    <a class="link" href="https://phpc.social/@loyen" title="Masstodon">
-                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 65">
-                            <path d="M29.92 0c-10.69 0-12.98.66-14.2.84C8.7 1.87 2.3 6.82.74 13.89a44.74 44.74 0 0 0-.68 10.87c.2 5.08.23 10.14.7 15.2.31 3.36.87 6.69 1.66 9.97 1.47 6.05 7.45 11.1 13.31 13.15a35.72 35.72 0 0 0 19.5 1.03c.7-.17 1.4-.36 2.09-.58 1.58-.5 3.42-1.06 4.77-2.04a.15.15 0 0 0 .06-.1v-4.91a.15.15 0 0 0-.05-.11.15.15 0 0 0-.12-.03 54 54 0 0 1-12.65 1.48c-7.33 0-9.3-3.48-9.86-4.93a15.26 15.26 0 0 1-.85-3.95.14.14 0 0 1 .17-.08c4.07.99 8.25 1.48 12.44 1.48 1 0 2 0 3.02-.03 4.21-.1 8.65-.33 12.8-1.14l.3-.06c6.53-1.26 12.75-5.2 13.39-15.18.02-.4.08-4.12.08-4.52 0-1.39.45-9.83-.07-15.02C59.81 7.41 53.73 1.9 46.51.84 45.3.66 40.68 0 30 0h-.08zM21 10.64c3.52 0 6.18 1.35 7.95 4.05l1.71 2.87 1.72-2.87c1.77-2.7 4.43-4.05 7.94-4.05a9.45 9.45 0 0 1 7.36 3.15c1.81 2.08 2.72 4.9 2.71 8.45h.01v17.35h-6.88V22.75c0-3.55-1.48-5.36-4.48-5.36-3.3 0-4.96 2.14-4.96 6.37v9.22h-6.84v-9.22c0-4.23-1.65-6.37-4.96-6.37-3 0-4.48 1.81-4.48 5.36v16.84h-6.87V22.24c0-3.55.9-6.36 2.72-8.45A9.43 9.43 0 0 1 21 10.64z" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
+        <div class="siteHeader">
+            <a href="/" class="siteHeader-title">Patrik Freij</a>
+            <nav class="siteHeader-navigation">
+                <a class="navigationItem" href="https://github.com/Loyen" title="Github">
+                    <svg class="navigationItem-icon" viewBox="0 0 16 16" version="1.1">
+                        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </a>
+                <a class="navigationItem" href="https://www.linkedin.com/in/patrik-freij" title="LinkedIn">
+                    <svg class="navigationItem-icon" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 34 34">
+                        <path d="M34,2.5v29A2.5,2.5,0,0,1,31.5,34H2.5A2.5,2.5,0,0,1,0,31.5V2.5A2.5,2.5,0,0,1,2.5,0h29A2.5,2.5,0,0,1,34,2.5ZM10,13H5V29h5Zm.45-5.5A2.88,2.88,0,0,0,7.59,4.6H7.5a2.9,2.9,0,0,0,0,5.8h0a2.88,2.88,0,0,0,2.95-2.81ZM29,19.28c0-4.81-3.06-6.68-6.1-6.68a5.7,5.7,0,0,0-5.06,2.58H17.7V13H13V29h5V20.49a3.32,3.32,0,0,1,3-3.58h.19c1.59,0,2.77,1,2.77,3.52V29h5Z"></path>
+                    </svg>
+                </a>
+                <a class="navigationItem" href="https://phpc.social/@loyen" title="Masstodon">
+                    <svg class="navigationItem-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 65">
+                        <path d="M29.92 0c-10.69 0-12.98.66-14.2.84C8.7 1.87 2.3 6.82.74 13.89a44.74 44.74 0 0 0-.68 10.87c.2 5.08.23 10.14.7 15.2.31 3.36.87 6.69 1.66 9.97 1.47 6.05 7.45 11.1 13.31 13.15a35.72 35.72 0 0 0 19.5 1.03c.7-.17 1.4-.36 2.09-.58 1.58-.5 3.42-1.06 4.77-2.04a.15.15 0 0 0 .06-.1v-4.91a.15.15 0 0 0-.05-.11.15.15 0 0 0-.12-.03 54 54 0 0 1-12.65 1.48c-7.33 0-9.3-3.48-9.86-4.93a15.26 15.26 0 0 1-.85-3.95.14.14 0 0 1 .17-.08c4.07.99 8.25 1.48 12.44 1.48 1 0 2 0 3.02-.03 4.21-.1 8.65-.33 12.8-1.14l.3-.06c6.53-1.26 12.75-5.2 13.39-15.18.02-.4.08-4.12.08-4.52 0-1.39.45-9.83-.07-15.02C59.81 7.41 53.73 1.9 46.51.84 45.3.66 40.68 0 30 0h-.08zM21 10.64c3.52 0 6.18 1.35 7.95 4.05l1.71 2.87 1.72-2.87c1.77-2.7 4.43-4.05 7.94-4.05a9.45 9.45 0 0 1 7.36 3.15c1.81 2.08 2.72 4.9 2.71 8.45h.01v17.35h-6.88V22.75c0-3.55-1.48-5.36-4.48-5.36-3.3 0-4.96 2.14-4.96 6.37v9.22h-6.84v-9.22c0-4.23-1.65-6.37-4.96-6.37-3 0-4.48 1.81-4.48 5.36v16.84h-6.87V22.24c0-3.55.9-6.36 2.72-8.45A9.43 9.43 0 0 1 21 10.64z" />
+                    </svg>
+                </a>
+            </nav>
         </div>
 
         <div class="section">
             <div class="section-content">
                 <p class="text-paragraph">
-                    I am a developer with 10+ years of experience doing web development with an interest in gaming and keyboards.
+                    I am a developer with 10+ years of experience doing web development with an interest
+                    in gaming and keyboards.
                 </p>
+
+                <ul class="text-list">
+                    <li>
+                        Web development with PHP which includes working with frameworks like Symfony,
+                        Drupal and Laravel.
+                    </li>
+                    <li>
+                        Updating older codebases to more modern standards (with linting,
+                        static analysis and test suites).
+                    </li>
+                    <li>
+                        Container-focused development for CI/CD and production use.
+                    </li>
+                    <li>
+                        Creating helper scripts and/or utilities for various projects.
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -249,47 +255,18 @@ body {
                 <div class="keyboards">
                     <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/planck_rev4_1x2uC_swedish.json">
                         <img class="keyboard-image" src="./image/planck.svg" width="113" height="41" alt="Illustration of a Planck Keyboard" />
-                        <div class="keyboard-name">Planck Swedish Layout</div>
+                        <div class="keyboard-name text-paragraph">Planck Swedish Layout</div>
                     </a>
                     <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/preonic_rev3_1x2uC_swedish.json">
                         <img class="keyboard-image" src="./image/preonic.svg" width="113" height="50" alt="Illustration of a Preonic Keyboard" />
-                        <div class="keyboard-name">Preonic Swedish Layout</div>
+                        <div class="keyboard-name text-paragraph">Preonic Swedish Layout</div>
                     </a>
 
                     <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/helix_rev3_5rows_swedish.json">
                         <img class="keyboard-image" src="./image/helix.svg" width="113" height="50" alt="Illustration of a Helix Keyboard" />
-                        <div class="keyboard-name">Helix Swedish Layout</div>
+                        <div class="keyboard-name text-paragraph">Helix Swedish Layout</div>
                     </a>
                 </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-content">
-                <h2 class="text-heading-2">Experience</h2>
-                <p class="text-paragraph">
-                    <ul class="text-list">
-                        <li>
-                            Web development with PHP which includes working with frameworks like Symfony, Drupal and
-                            Laravel.
-                        </li>
-                        <li>
-                            Updating older codebases to more modern standards (with linting,
-                            static analysis and test suites).
-                        </li>
-                        <li>Container-focused development for CI/CD, production and local development.
-                            <ul>
-                                <li>Building Docker images for various projects (ex. PHP, Java, Javascript).</li>
-                                <li>Building Gitlab pipelines.</li>
-                                <li>Building Kubernetes configuration files using Kustomize.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            Creating helper scripts and/or utilities for various projects in a language suitable for the
-                            project (ex. Bash, PHP, Go).
-                        </li>
-                    </ul>
-                </p>
             </div>
         </div>
     </div>
