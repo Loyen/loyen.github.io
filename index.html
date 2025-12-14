@@ -29,7 +29,7 @@
     --spacing-medium: 1rem;
     --spacing-large: 4rem;
 
-    --transition-durations: 60ms;
+    --transition-durations: 30ms;
     --background-gradient-angle: 160deg;
 
     --site-width: 960px;
@@ -73,6 +73,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 body {
@@ -84,31 +85,41 @@ body {
 
 .site {
     display: grid;
+    height: 100%;
+    grid-template-rows: auto 1fr auto;
 }
 
 .siteHeader {
     display: grid;
+    grid-auto-flow: column;
     place-self: center;
     width: 100%;
     max-width: var(--site-width);
     padding: var(--spacing-medium);
 }
 
-.siteHeader-title {
-    grid-area: 1/1;
-    justify-self: start;
-    align-self: center;
-    font-size: var(--font-size-large);
-    text-decoration: none;
-    color: var(--default-color);
+.siteFooter {
+    display: grid;
+    place-self: center;
+    padding: var(--spacing-large);
 }
 
-.siteHeader-navigation {
-    grid-area: 1/1;
-    display: inline-flex;
-    justify-self: end;
+.siteHeader-title {
+    font-size: var(--font-size-large);
+}
+
+.navigation {
+    display: flex;
     align-self: center;
-    gap: 1em;
+    gap: var(--spacing-small);
+}
+
+.navigation--start {
+    justify-self: start;
+}
+
+.navigation--end {
+    justify-self: end;
 }
 
 .navigationItem {
@@ -151,7 +162,7 @@ body {
     width: 100%;
 }
 
-.section:nth-child(2n + 1) .section-content {
+.section.section--highlight .section-content {
     color: var(--default-alternate-color);
     background: var(--primary-color);
     border-radius: var(--corner-radius-medium);
@@ -203,9 +214,11 @@ body {
 </head>
 <body>
     <div class="site">
-        <div class="siteHeader">
-            <a href="/" class="siteHeader-title">Patrik Freij</a>
-            <nav class="siteHeader-navigation">
+        <header class="siteHeader">
+            <nav class="navigation navigation--start">
+                <a href="/" class="navigationItem siteHeader-title">Patrik Freij</a>
+            </nav>
+            <nav class="navigation navigation--end">
                 <a class="navigationItem" href="https://github.com/Loyen" title="Github">
                     <svg class="navigationItem-icon" viewBox="0 0 16 16" version="1.1">
                         <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
@@ -222,53 +235,64 @@ body {
                     </svg>
                 </a>
             </nav>
-        </div>
+        </header>
 
-        <div class="section">
-            <div class="section-content">
-                <p class="text-paragraph">
-                    I am a developer with 10+ years of experience doing web development with an interest
-                    in gaming and keyboards.
-                </p>
+        <main>
+            <div class="section">
+                <div class="section-content">
+                    <p class="text-paragraph">
+                        I am a developer with 10+ years of experience doing web development with an interest
+                        in gaming and keyboards.
+                    </p>
 
-                <ul class="text-list">
-                    <li>
-                        Web development with PHP which includes working with frameworks like Symfony,
-                        Drupal and Laravel.
-                    </li>
-                    <li>
-                        Updating older codebases to more modern standards (with linting,
-                        static analysis and test suites).
-                    </li>
-                    <li>
-                        Container-focused development for CI/CD and production use.
-                    </li>
-                    <li>
-                        Creating helper scripts and/or utilities for various projects.
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-content">
-                <div class="keyboards">
-                    <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/planck_rev4_1x2uC_swedish.json">
-                        <img class="keyboard-image" src="./image/planck.svg" width="113" height="41" alt="Illustration of a Planck Keyboard" />
-                        <div class="keyboard-name text-paragraph">Planck Swedish Layout</div>
-                    </a>
-                    <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/preonic_rev3_1x2uC_swedish.json">
-                        <img class="keyboard-image" src="./image/preonic.svg" width="113" height="50" alt="Illustration of a Preonic Keyboard" />
-                        <div class="keyboard-name text-paragraph">Preonic Swedish Layout</div>
-                    </a>
-
-                    <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/helix_rev3_5rows_swedish.json">
-                        <img class="keyboard-image" src="./image/helix.svg" width="113" height="50" alt="Illustration of a Helix Keyboard" />
-                        <div class="keyboard-name text-paragraph">Helix Swedish Layout</div>
-                    </a>
+                    <ul class="text-list">
+                        <li>
+                            Web development with PHP which includes working with frameworks like Symfony,
+                            Drupal and Laravel.
+                        </li>
+                        <li>
+                            Updating older codebases to more modern standards (with linting,
+                            static analysis and test suites).
+                        </li>
+                        <li>
+                            Container-focused development for CI/CD and production use.
+                        </li>
+                        <li>
+                            Creating helper scripts and/or utilities for various projects.
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
+
+            <div class="section section--highlight">
+                <div class="section-content">
+                    <div class="keyboards">
+                        <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/planck_rev4_1x2uC_swedish.json">
+                            <img class="keyboard-image" src="./image/planck.svg" width="113" height="41" alt="Illustration of a Planck Keyboard" />
+                            <div class="keyboard-name text-paragraph">Planck Swedish Layout</div>
+                        </a>
+                        <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/preonic_rev3_1x2uC_swedish.json">
+                            <img class="keyboard-image" src="./image/preonic.svg" width="113" height="50" alt="Illustration of a Preonic Keyboard" />
+                            <div class="keyboard-name text-paragraph">Preonic Swedish Layout</div>
+                        </a>
+
+                        <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/helix_rev3_5rows_swedish.json">
+                            <img class="keyboard-image" src="./image/helix.svg" width="113" height="50" alt="Illustration of a Helix Keyboard" />
+                            <div class="keyboard-name text-paragraph">Helix Swedish Layout</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="siteFooter">
+            <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" viewBox="0 0 32 32">
+                <style>
+                .owl {fill: var(--default-color);}
+                </style>
+                <path d="M3.2 4.8C0 7.97 0 11.2 0 16.53c0 4.27 3.2 9.6 6.4 11.74 3.2 2.13 6.4 2.13 9.6 2.13 3.2 0 6.4 0 9.6-2.13 3.2-2.14 6.4-7.49 6.4-11.74C32 11.18 32 8 28.8 4.8 25.6 1.6 20.27 1.6 16 1.6c-4.26 0-9.59.01-12.8 3.2ZM9.6 8a4.59 4.59 0 0 1 4.27 4.27 4.59 4.59 0 0 1-4.27 4.26 4.59 4.59 0 0 1-4.27-4.26A4.59 4.59 0 0 1 9.6 8Zm12.8 0a4.59 4.59 0 0 1 4.27 4.27 4.59 4.59 0 0 1-4.27 4.26 4.59 4.59 0 0 1-4.27-4.26A4.59 4.59 0 0 1 22.4 8ZM9.6 10.13a2.3 2.3 0 0 0-2.13 2.14c0 1.06 1.07 2.13 2.13 2.13a2.3 2.3 0 0 0 2.13-2.13 2.3 2.3 0 0 0-2.13-2.14Zm12.8 0a2.3 2.3 0 0 0-2.13 2.14c0 1.06 1.06 2.12 2.13 2.12 1.07 0 2.13-1.06 2.13-2.12a2.3 2.3 0 0 0-2.13-2.14zm-8.53 8.54a3.24 3.24 0 0 1 4.26 0c1.07 1.06-1.06 6.4-2.13 6.4-1.07 0-3.2-5.34-2.13-6.4z" class="owl" style="stroke-width:1.06667"/>
+            </svg>
+        </footer>
     </div>
 </body>
 </html>
