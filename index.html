@@ -30,7 +30,7 @@
 
     --site-width: 960px;
 
-    --font-size-small: 0.6rem;
+    --font-size-small: 0.8rem;
     --font-size-normal: 1rem;
     --font-size-large: 1.4rem;
 
@@ -99,10 +99,6 @@ body {
     padding: var(--spacing-large);
 }
 
-.siteHeader-title {
-    font-size: var(--font-size-large);
-}
-
 .navigation {
     display: flex;
     align-self: center;
@@ -118,6 +114,7 @@ body {
 }
 
 .navigationItem {
+    font-size: clamp(var(--font-size-small), 2dvw, var(--font-size-normal));
     text-decoration: none;
     border-radius: var(--corner-radius-large);
     padding: var(--spacing-small) var(--spacing-medium);
@@ -145,6 +142,11 @@ body {
     color: var(--secondary-alternate-color);
 }
 
+.siteHeader-title {
+    font-size: clamp(var(--font-size-small), 2dvw, var(--font-size-large));
+}
+
+
 .section {
     display: grid;
     padding-block: var(--spacing-medium);
@@ -168,7 +170,7 @@ body {
 .text-heading-2,
 .text-paragraph,
 .text-list {
-    font-size: clamp(0.9em, 2dvw, 1.2em);
+    font-size: clamp(var(--font-size-small), 2dvw, var(--font-size-normal));
     font-weight: normal;
     line-height: 1.5em;
     margin-block: var(--spacing-small);
