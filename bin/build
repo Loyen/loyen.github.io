@@ -1,0 +1,178 @@
+#!/usr/bin/env php
+<?php
+
+require_once 'vendor/autoload.php';
+
+use League\CommonMark\Environment\Environment as CommonMarkEnvironment;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\Footnote\FootnoteExtension;
+use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
+use League\CommonMark\MarkdownConverter;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
+use Symfony\Component\Finder\Finder;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
+define('ROOT', dirname(__DIR__));
+
+enum MessageType {
+    case DEFAULT;
+    case ERROR;
+    case INFO;
+    case SUCCESS;
+
+    public function getColorCode() {
+        return match($this) {
+            self::ERROR => "\033[31m",
+            self::INFO => "\033[34m",
+            self::SUCCESS => "\033[32m",
+            default => "\033[00m"
+        };
+    }
+}
+
+function message(string $text) {
+    echo $text;
+}
+
+class PageGenerator {
+    public function __construct(
+        private Filesystem $filesystem,
+        private Environment $twig,
+    ) {}
+
+    public function create(
+        string $path,
+        string $template,
+        array $parameters
+    ): void {
+        $normalisedPath = Path::normalize($path);
+        $pathDir = dirname($path);
+
+        if (!is_dir($pathDir)) {
+            $this->filesystem->mkdir($pathDir);
+        }
+
+        $this->filesystem->dumpFile(
+            $path,
+            $this->twig->render($template, $parameters)
+        );
+
+        message(
+            'Page dumped as '
+            . MessageType::SUCCESS->getColorCode()
+            . $normalisedPath
+            . MessageType::DEFAULT->getColorCode()
+            . PHP_EOL
+        );
+    }
+}
+
+$assetsDirectory = ROOT . '/assets';
+$templateDirectory = ROOT . '/templates';
+$twigCacheDirectory = ROOT . '/.twig.cache';
+$targetDirectory = Path::makeRelative(ROOT . '/_site', ROOT);
+
+$filesystem = new Filesystem();
+$pageGenerator = new PageGenerator(
+    $filesystem,
+    new Environment(new FilesystemLoader($templateDirectory))
+);
+
+message('Creating assets' . PHP_EOL);
+$filesystem->mirror($assetsDirectory, $targetDirectory . '/assets');
+
+message('Creating article pages' . PHP_EOL);
+
+$config = [
+    'html_input' => 'allow',
+    'allow_unsafe_links' => false,
+    'footnote' => [
+        'backref_class'      => 'footnote-backref',
+        'backref_symbol'     => '↩',
+        'container_add_hr'   => true,
+        'container_class'    => 'footnotes',
+        'ref_class'          => 'footnote-ref',
+        'ref_id_prefix'      => 'fnref:',
+        'footnote_class'     => 'footnote',
+        'footnote_id_prefix' => 'fn:',
+    ],
+];
+
+$markdownEnvironment = new CommonMarkEnvironment($config);
+$markdownEnvironment->addExtension(new CommonMarkCoreExtension());
+$markdownEnvironment->addExtension(new FootnoteExtension());
+$markdownEnvironment->addExtension(new FrontMatterExtension());
+
+$markdownConverter = new MarkdownConverter($markdownEnvironment);
+
+$sourceDirectory = Path::makeRelative(ROOT . '/docs', ROOT);
+
+$finder = new Finder();
+$finder->files()->in($sourceDirectory);
+
+class Article {
+    public function __construct(
+        public string $title,
+        public DateTimeImmutable $created,
+        public string $content,
+        public string $url,
+        /** string[] */
+        public array $tags,
+    ) {}
+}
+
+$articles = [];
+
+foreach ($finder as $file) {
+    $absoluteFilePath = $file->getRealPath();
+
+    message(
+        'Reading '
+        . MessageType::INFO->getColorCode()
+        . "{$sourceDirectory}/{$file->getFilename()}"
+        . MessageType::DEFAULT->getColorCode()
+        . PHP_EOL
+    );
+
+    $uri = "/articles/{$file->getFilenameWithoutExtension()}";
+
+    $markdown = $markdownConverter->convert(file_get_contents($absoluteFilePath));
+
+    $article = new Article(
+        $markdown->getFrontMatter()['title'] ?? '',
+        DateTimeImmutable::createFromFormat('Y-m-d', $markdown->getFrontMatter()['created'] ?? ''),
+        $markdown->getContent(),
+        $uri,
+        $markdown->getFrontMatter()['tags'] ?? []
+    );
+
+    $articles[] = $article;
+
+    $pageGenerator->create(
+        "{$targetDirectory}{$uri}/index.html",
+        'article.html.twig',
+        ['article' => $article],
+    );
+}
+
+$pageGenerator->create(
+    Path::makeRelative($targetDirectory . '/articles/index.html', ROOT),
+    'articles.html.twig',
+    ['articles' => $articles],
+);
+
+message('Creating base pages' . PHP_EOL);
+
+$pageGenerator->create(
+    Path::makeRelative($targetDirectory . '/index.html', ROOT),
+    'home.html.twig',
+    []
+);
+
+$pageGenerator->create(
+    Path::makeRelative($targetDirectory . '/404.html', ROOT),
+    '404.html.twig',
+    []
+);

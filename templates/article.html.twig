@@ -1,0 +1,65 @@
+{% extends 'page.html.twig' %}
+
+{% set title = article.title %}
+{% set keywords = article.tags %}
+
+{% block content %}
+<div class="article">
+    <div class="article-meta">
+        <h1 class="article-title">{{ article.title }}</h1>
+        <p class="article-created">{{ article.created.format('Y-m-d') }}</p>
+    </div>
+    <div class="article-content">
+        {{ article.content|raw }}
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+.article {
+    align-self: center;
+    max-width: var(--site-width);
+    padding-inline: var(--spacing-small);
+    width: 100%;
+}
+
+.article-meta {
+    align-items: center;
+    display: grid;
+    gap: var(--spacing-medium);
+    grid-template-columns: 1fr auto;
+}
+
+.article-content {
+    display: grid;
+}
+
+.article blockquote {
+    border-inline-start-color: var(--secondary-color);
+    border-inline-start-style: solid;
+    border-inline-start-width: var(--border-medium);
+    margin: 0;
+    padding-inline-start: var(--spacing-small);
+}
+
+.article pre {
+    border-color: var(--secondary-color);
+    border-style: solid;
+    border-width: var(--border-small);
+    font-family: monospace;
+    font-size: var(--font-size-small);
+    padding: var(--spacing-small);
+}
+
+.article sup a {
+    font-size: var(--font-size-small);
+}
+
+.article pre {
+    overflow-x: auto;
+}
+
+:target a {
+    font-weight: bold;
+}
+{% endblock %}

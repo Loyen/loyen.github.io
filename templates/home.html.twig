@@ -1,0 +1,112 @@
+{% extends 'page.html.twig' %}
+
+{% block content %}
+<div class="section">
+    <div class="section-content">
+        <p class="text-paragraph">
+            I am a developer with 10+ years of experience doing web development with an interest
+            in gaming and keyboards.
+        </p>
+
+        <ul class="text-list">
+            <li>
+                Web development with PHP which includes working with frameworks like Symfony,
+                Drupal and Laravel.
+            </li>
+            <li>
+                Updating older codebases to more modern standards (with linting,
+                static analysis and test suites).
+            </li>
+            <li>
+                Container-focused development for CI/CD and production use.
+            </li>
+            <li>
+                Creating helper scripts and/or utilities for various projects.
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="section section--highlight">
+    <div class="section-content">
+        <div class="keyboards">
+            <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/planck_rev4_1x2uC_swedish.json">
+                {% include 'media/planck.svg' %}
+                <div class="keyboard-name text-paragraph">Planck Swedish Layout</div>
+            </a>
+            <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/preonic_rev3_1x2uC_swedish.json">
+                {% include 'media/preonic.svg' %}
+                <div class="keyboard-name text-paragraph">Preonic Swedish Layout</div>
+            </a>
+
+            <a class="keyboard" href="https://github.com/Loyen/qmk-keyboard-layouts/blob/main/keyboards/helix_rev3_5rows_swedish.json">
+                {% include 'media/helix.svg' %}
+                <div class="keyboard-name text-paragraph">Helix Swedish Layout</div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block style %}
+.section {
+    display: grid;
+    padding-block: var(--spacing-medium);
+}
+
+.section-content {
+    display: grid;
+    justify-self: center;
+    max-width: 960px;
+    padding-block: var(--spacing-medium);
+    padding-inline: var(--spacing-small);
+    width: 100%;
+}
+
+.section.section--highlight {
+    color: var(--primary-alternate-color);
+    background: var(--secondary-color);
+}
+
+.text-heading-1,
+.text-heading-2,
+.text-paragraph,
+.text-list {
+    font-size: clamp(var(--font-size-small), 2dvw, var(--font-size-normal));
+    font-weight: normal;
+    line-height: 1.5em;
+    margin-block: var(--spacing-small);
+}
+
+.keyboards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-small);
+    justify-content: center;
+    margin: var(--spacing-small);
+}
+
+.keyboard {
+    align-self: center;
+    background-color: var(--primary-alternate-color);
+    border-radius: var(--corner-radius-small);
+    color: var(--primary-color);
+    outline: none;
+    padding: var(--spacing-small);
+    text-align: center;
+    text-decoration: none;
+    transition-duration: var(--transition-durations);
+    transition-property: background-color, color;
+    width: 300px;
+}
+
+.keyboard:hover,
+.keyboard:focus-visible {
+    color: var(--link-color);
+}
+
+.keyboard-image {
+    height: auto;
+    width: auto;
+}
+{% endblock %}

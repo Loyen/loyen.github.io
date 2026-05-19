@@ -1,0 +1,233 @@
+{% set metakeywords = ['developer','web','sweden','swedish']|merge(keywords ?? []) %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title ? title ~ ' - ' : '' }}Patrik Freij</title>
+    <link rel="shortcut icon" type="image/svg+xml" href="/assets/favicon.svg" />
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Patrik Freij Personal Homepage, Developer">
+    <meta name="keywords" content="{{ metakeywords|join(',') }}">
+    <meta name="author" content="Patrik Freij">
+
+    <style>
+:root {
+    --primary-color: #1b1d1e;
+    --primary-alternate-color: #f8f8f2;
+
+    --secondary-color: #360cfa;
+    --secondary-alternate-color: #f8f8f2;
+
+    --link-color: var(--secondary-color);
+    --link-alternate-color: var(--secondary-alternate-color);
+
+    --spacing-small: .5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 2rem;
+
+    --border-small: .1rem;
+    --border-medium: .2rem;
+
+    --transition-durations: 30ms;
+    --background-gradient-angle: 160deg;
+
+    --site-width: 960px;
+
+    --font-size-small: 0.8rem;
+    --font-size-normal: 1rem;
+    --font-size-large: 1.4rem;
+
+    --corner-radius-small: .5rem;
+    --corner-radius-medium: .7rem;
+    --corner-radius-large: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #f8f8f2;
+        --primary-alternate-color: #1b1d1e;
+
+        --secondary-color: #fade0c;
+        --secondary-alternate-color: #1b1d1e;
+    }
+}
+
+@media (prefers-reduced-motion) {
+    :root {
+        --transition-durations: 0;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+::selection {
+    background-color: var(--secondary-color);
+    color: var(--secondary-alternate-color);
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    background-color: var(--primary-alternate-color);
+    color: var(--primary-color);
+    font-family: system-ui, sans-serif;
+    font-size: var(--font-size-normal);
+}
+
+.site {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+}
+
+.siteHeader {
+    display: grid;
+    grid-auto-flow: column;
+    max-width: var(--site-width);
+    padding: var(--spacing-large) var(--spacing-medium);
+    place-self: center;
+    width: 100%;
+}
+
+.siteMain {
+    display: flex;
+    flex-direction: column;
+}
+
+.siteFooter {
+    display: grid;
+    fill: currentColor;
+    padding: var(--spacing-large);
+    place-self: center;
+}
+
+.siteFooter .owl
+{
+    width: 48px;
+}
+
+.navigation {
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    display: flex;
+    gap: var(--spacing-large);
+}
+
+.navigation--start {
+    justify-self: start;
+}
+
+.navigation--end {
+    justify-self: end;
+}
+
+.navigationItem {
+    align-items: center;
+    background-color: var(--primary-alternate-color);
+    border-radius: var(--corner-radius-large);
+    color: var(--primary-color);
+    display: flex;
+    fill: currentColor;
+    font-size: clamp(var(--font-size-small), 2dvw, var(--font-size-normal));
+    gap: var(--spacing-small);
+    line-height: 1;
+    outline: none;
+    text-decoration: none;
+    transition-duration: var(--transition-durations);
+    transition-property: color;
+}
+
+.navigationItem:hover,
+.navigationItem:focus-visible {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.siteHeaderText--alternate {
+    color: var(--secondary-color);
+}
+
+.navigationItem:hover .siteHeaderText--alternate,
+.navigationItem:focus-visible .siteHeaderText--alternate {
+    color: var(--secondary-alternate-color);
+}
+
+.siteHeader-title .owl {
+    width: 32px;
+}
+
+.siteMain h1,
+.siteMain h2,
+.siteMain h3,
+.siteMain p,
+.siteMain a,
+.siteMain li {
+    font-size: clamp(var(--font-size-small), 2dvw, var(--font-size-normal));
+    font-weight: normal;
+    line-height: 1.5em;
+    margin-block: var(--spacing-small);
+}
+
+.siteMain h1 {
+    font-weight: bold;
+    font-size: clamp(var(--font-size-normal), 3dvw, var(--font-size-large));
+}
+
+.siteMain h2 {
+    font-weight: bold;
+    font-size: var(--font-size-normal);
+}
+
+.siteMain h3 {
+    font-weight: bold;
+    font-size: clamp(var(--font-size-small), 2.25dvw, var(--font-size-normal));
+}
+
+.siteMain a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.siteMain a:hover,
+.siteMain a:focus {
+    outline: none;
+    text-decoration: underline;
+}
+
+{% block style %}{% endblock %}
+    </style>
+</head>
+<body>
+    <div class="site">
+        <header class="siteHeader">
+            <nav class="navigation navigation--start">
+                <a href="/" class="navigationItem siteHeader-title">
+                    {% include 'media/owl.svg' %}
+                    Koduggla
+                </a>
+                <a class="navigationItem" href="/articles">Articles</a>
+                <a class="navigationItem" href="https://github.com/Loyen">Github</a>
+            </nav>
+            <nav class="navigation navigation--end">
+            </nav>
+        </header>
+
+        <main class="siteMain">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="siteFooter">
+            {% include 'media/owl.svg' %}
+        </footer>
+    </div>
+</body>
+</html>
