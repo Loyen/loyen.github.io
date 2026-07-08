@@ -1,5 +1,6 @@
 ---
 title: Git Commit Message Guidelines
+alias: git-commit-message-guidelines
 created: '2026-04-23'
 tags:
 - git

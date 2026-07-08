@@ -3,11 +3,16 @@
 
 require_once 'vendor/autoload.php';
 
+use App\Article;
+use App\Messenger;
+use App\PageGenerator;
 use League\CommonMark\Environment\Environment as CommonMarkEnvironment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\Footnote\FootnoteExtension;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
+use League\CommonMark\Extension\FrontMatter\FrontMatterProviderInterface;
 use League\CommonMark\MarkdownConverter;
+use League\CommonMark\Output\RenderedContentInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
@@ -16,74 +21,23 @@ use Twig\Loader\FilesystemLoader;
 
 define('ROOT', dirname(__DIR__));
 
-enum MessageType {
-    case DEFAULT;
-    case ERROR;
-    case INFO;
-    case SUCCESS;
-
-    public function getColorCode() {
-        return match($this) {
-            self::ERROR => "\033[31m",
-            self::INFO => "\033[34m",
-            self::SUCCESS => "\033[32m",
-            default => "\033[00m"
-        };
-    }
-}
-
-function message(string $text) {
-    echo $text;
-}
-
-class PageGenerator {
-    public function __construct(
-        private Filesystem $filesystem,
-        private Environment $twig,
-    ) {}
-
-    public function create(
-        string $path,
-        string $template,
-        array $parameters
-    ): void {
-        $normalisedPath = Path::normalize($path);
-        $pathDir = dirname($path);
-
-        if (!is_dir($pathDir)) {
-            $this->filesystem->mkdir($pathDir);
-        }
-
-        $this->filesystem->dumpFile(
-            $path,
-            $this->twig->render($template, $parameters)
-        );
-
-        message(
-            'Page dumped as '
-            . MessageType::SUCCESS->getColorCode()
-            . $normalisedPath
-            . MessageType::DEFAULT->getColorCode()
-            . PHP_EOL
-        );
-    }
-}
-
 $assetsDirectory = ROOT . '/assets';
 $templateDirectory = ROOT . '/templates';
 $twigCacheDirectory = ROOT . '/.twig.cache';
 $targetDirectory = Path::makeRelative(ROOT . '/_site', ROOT);
 
+$messenger = new Messenger();
 $filesystem = new Filesystem();
 $pageGenerator = new PageGenerator(
     $filesystem,
-    new Environment(new FilesystemLoader($templateDirectory))
+    new Environment(new FilesystemLoader($templateDirectory)),
+    $messenger,
 );
 
-message('Creating assets' . PHP_EOL);
+$messenger->write('Creating assets');
 $filesystem->mirror($assetsDirectory, $targetDirectory . '/assets');
 
-message('Creating article pages' . PHP_EOL);
+$messenger->write('Creating article pages');
 
 $config = [
     'html_input' => 'allow',
@@ -112,40 +66,26 @@ $sourceDirectory = Path::makeRelative(ROOT . '/docs', ROOT);
 $finder = new Finder();
 $finder->files()->in($sourceDirectory);
 
-class Article {
-    public function __construct(
-        public string $title,
-        public DateTimeImmutable $created,
-        public string $content,
-        public string $url,
-        /** string[] */
-        public array $tags,
-    ) {}
-}
-
 $articles = [];
 
 foreach ($finder as $file) {
     $absoluteFilePath = $file->getRealPath();
 
-    message(
-        'Reading '
-        . MessageType::INFO->getColorCode()
-        . "{$sourceDirectory}/{$file->getFilename()}"
-        . MessageType::DEFAULT->getColorCode()
-        . PHP_EOL
-    );
+    $messenger->write("Reading <info>{$sourceDirectory}/{$file->getFilename()}</>");
 
-    $uri = "/articles/{$file->getFilenameWithoutExtension()}";
+    /** @var RenderedContentInterface&FrontMatterProviderInterface */
+    $markdown = $markdownConverter->convert((string) file_get_contents($absoluteFilePath));
 
-    $markdown = $markdownConverter->convert(file_get_contents($absoluteFilePath));
+    $frontmatter = $markdown->getFrontMatter() ?? [];
+
+    $uri = "/articles/{$frontmatter['alias']}";
 
     $article = new Article(
-        $markdown->getFrontMatter()['title'] ?? '',
-        DateTimeImmutable::createFromFormat('Y-m-d', $markdown->getFrontMatter()['created'] ?? ''),
+        $frontmatter['title'] ?? '',
+        DateTimeImmutable::createFromFormat('Y-m-d', $frontmatter['created'] ?? ''),
         $markdown->getContent(),
         $uri,
-        $markdown->getFrontMatter()['tags'] ?? []
+        $frontmatter['tags'] ?? [],
     );
 
     $articles[] = $article;
@@ -163,16 +103,18 @@ $pageGenerator->create(
     ['articles' => $articles],
 );
 
-message('Creating base pages' . PHP_EOL);
+$messenger->write('Creating base pages');
 
-$pageGenerator->create(
-    Path::makeRelative($targetDirectory . '/index.html', ROOT),
-    'home.html.twig',
-    []
-);
+$pages = [
+    'home.html.twig' => $targetDirectory . '/index.html',
+    '404.html.twig' => $targetDirectory . '/404.html',
+];
 
-$pageGenerator->create(
-    Path::makeRelative($targetDirectory . '/404.html', ROOT),
-    '404.html.twig',
-    []
-);
+foreach ($pages as $templateFilePath => $targetFilePath)
+{
+    $pageGenerator->create(
+        Path::makeRelative($targetFilePath, ROOT),
+        $templateFilePath,
+        []
+    );
+}
