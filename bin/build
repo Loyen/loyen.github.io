@@ -10,9 +10,8 @@ use League\CommonMark\Environment\Environment as CommonMarkEnvironment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\Footnote\FootnoteExtension;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
-use League\CommonMark\Extension\FrontMatter\FrontMatterProviderInterface;
+use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use League\CommonMark\MarkdownConverter;
-use League\CommonMark\Output\RenderedContentInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Finder\Finder;
@@ -21,10 +20,10 @@ use Twig\Loader\FilesystemLoader;
 
 define('ROOT', dirname(__DIR__));
 
-$assetsDirectory = ROOT . '/assets';
-$templateDirectory = ROOT . '/templates';
-$twigCacheDirectory = ROOT . '/.twig.cache';
-$targetDirectory = Path::makeRelative(ROOT . '/_site', ROOT);
+$assetsDirectory = ROOT.'/assets';
+$templateDirectory = ROOT.'/templates';
+$twigCacheDirectory = ROOT.'/.twig.cache';
+$targetDirectory = Path::makeRelative(ROOT.'/_site', ROOT);
 
 $messenger = new Messenger();
 $filesystem = new Filesystem();
@@ -35,7 +34,7 @@ $pageGenerator = new PageGenerator(
 );
 
 $messenger->write('Creating assets');
-$filesystem->mirror($assetsDirectory, $targetDirectory . '/assets');
+$filesystem->mirror($assetsDirectory, $targetDirectory.'/assets');
 
 $messenger->write('Creating article pages');
 
@@ -43,13 +42,13 @@ $config = [
     'html_input' => 'allow',
     'allow_unsafe_links' => false,
     'footnote' => [
-        'backref_class'      => 'footnote-backref',
-        'backref_symbol'     => '↩',
-        'container_add_hr'   => true,
-        'container_class'    => 'footnotes',
-        'ref_class'          => 'footnote-ref',
-        'ref_id_prefix'      => 'fnref:',
-        'footnote_class'     => 'footnote',
+        'backref_class' => 'footnote-backref',
+        'backref_symbol' => '↩',
+        'container_add_hr' => true,
+        'container_class' => 'footnotes',
+        'ref_class' => 'footnote-ref',
+        'ref_id_prefix' => 'fnref:',
+        'footnote_class' => 'footnote',
         'footnote_id_prefix' => 'fn:',
     ],
 ];
@@ -61,7 +60,7 @@ $markdownEnvironment->addExtension(new FrontMatterExtension());
 
 $markdownConverter = new MarkdownConverter($markdownEnvironment);
 
-$sourceDirectory = Path::makeRelative(ROOT . '/docs', ROOT);
+$sourceDirectory = Path::makeRelative(ROOT.'/docs', ROOT);
 
 $finder = new Finder();
 $finder->files()->in($sourceDirectory);
@@ -98,7 +97,7 @@ foreach ($finder as $file) {
 }
 
 $pageGenerator->create(
-    Path::makeRelative($targetDirectory . '/articles/index.html', ROOT),
+    Path::makeRelative($targetDirectory.'/articles/index.html', ROOT),
     'articles.html.twig',
     ['articles' => $articles],
 );
@@ -106,12 +105,11 @@ $pageGenerator->create(
 $messenger->write('Creating base pages');
 
 $pages = [
-    'home.html.twig' => $targetDirectory . '/index.html',
-    '404.html.twig' => $targetDirectory . '/404.html',
+    'home.html.twig' => $targetDirectory.'/index.html',
+    '404.html.twig' => $targetDirectory.'/404.html',
 ];
 
-foreach ($pages as $templateFilePath => $targetFilePath)
-{
+foreach ($pages as $templateFilePath => $targetFilePath) {
     $pageGenerator->create(
         Path::makeRelative($targetFilePath, ROOT),
         $templateFilePath,

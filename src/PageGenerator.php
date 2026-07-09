@@ -6,21 +6,23 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Twig\Environment;
 
-class PageGenerator {
+class PageGenerator
+{
     public function __construct(
         private Filesystem $filesystem,
         private Environment $twig,
         private Messenger $messenger,
-    ) {}
+    ) {
+    }
 
     /** @param array<string, mixed> $parameters */
     public function create(
         string $path,
         string $template,
-        array $parameters
+        array $parameters,
     ): void {
         $normalisedPath = Path::normalize($path);
-        $pathDir = dirname($path);
+        $pathDir = \dirname($path);
 
         if (!is_dir($pathDir)) {
             $this->filesystem->mkdir($pathDir);
